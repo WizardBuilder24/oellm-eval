@@ -578,6 +578,43 @@ task_groups:
       - task: "polymath_{lang}_top"
         subset: "{lang}"
 
+  qwen-omni-image:
+    description: >
+      Image-understanding benchmarks sized for small omni models (0-shot,
+      lmms-eval, qwen3_omni wrapper). All nine tasks score locally
+      (no LLM-judge dependency) -- mmbench_en_dev_static replaces the
+      default mmbench_en_dev, which requires an OpenAI API key.
+    suite: lmms-eval
+    n_shots: [0]
+    tasks:
+      - task: mmmu_val
+        dataset: lmms-lab-encoder/MMMU
+        metric: mmmu_acc
+      - task: mmstar
+        dataset: Lin-Chen/MMStar
+        metric: average
+      - task: ai2d
+        dataset: lmms-lab-encoder/ai2d
+        metric: exact_match
+      - task: chartqa
+        dataset: lmms-lab-encoder/ChartQA
+        metric: relaxed_overall
+      - task: realworldqa
+        dataset: lmms-lab-encoder/RealWorldQA
+        metric: exact_match
+      - task: hallusion_bench_image
+        dataset: lmms-lab-encoder/HallusionBench
+        metric: aAcc
+      - task: ocrbench
+        dataset: echo840/OCRBench
+        metric: ocrbench_accuracy
+      - task: countbenchqa
+        dataset: vikhyatk/CountBenchQA
+        metric: acc
+      - task: mmbench_en_dev_static
+        dataset: lmms-lab-encoder/MMBench
+        metric: gpt_eval_score
+
 super_groups:
   oellm-multilingual:
     description: "Combined Belebele EU set plus multilingual benchmarks"

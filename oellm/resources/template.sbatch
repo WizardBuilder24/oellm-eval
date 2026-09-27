@@ -268,6 +268,23 @@ do
                 exit 1
             fi
             ;;
+        lmms-eval|lmms_eval)
+            RESULTS_SUBDIR="{evals_dir}/$(openssl rand -hex 5)"
+            EVAL_OUT_DIR="$RESULTS_SUBDIR"
+            EVAL_OUT_PAT="*"
+            if [ -n "$VENV_PATH" ]; then
+                source "$VENV_PATH/bin/activate"
+                lmms-eval --model qwen3_omni \
+                    --model_args pretrained=$model_path \
+                    --tasks "$task_path" \
+                    --output_path "$RESULTS_SUBDIR" \
+                    ${{LIMIT:+--limit $LIMIT}}
+                EVAL_STATUS=$?
+            else
+                echo "[error] lmms-eval suite requires --venv_path (not supported in container mode)."
+                exit 1
+            fi
+            ;;
         *)
             echo "[warning] Unknown evaluation suite '$eval_suite'. Skipping."
             EVAL_STATUS=1

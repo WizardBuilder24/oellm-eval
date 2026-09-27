@@ -1,0 +1,17 @@
+# Dependencies for the lmms-eval (image / audio-visual) evaluation suite
+
+# Qwen3-Omni support (Qwen3OmniMoeForConditionalGeneration / Qwen3OmniMoeProcessor)
+# is not yet in a released transformers version, per lmms_eval/models/*/qwen3_omni.py's
+# own import guard. Re-pin to a released version once it ships.
+transformers @ git+https://github.com/huggingface/transformers
+
+lmms-eval
+qwen-omni-utils
+accelerate
+torch
+librosa
+moviepy
+
+# Needed by qwen3_omni.py's default attn_implementation="flash_attention_2".
+# Requires torch already installed; may need `pip install --no-build-isolation flash-attn`.
+flash-attn
