@@ -578,10 +578,10 @@ task_groups:
       - task: "polymath_{lang}_top"
         subset: "{lang}"
 
-  qwen-omni-image:
+  vqa:
     description: >
       Image-understanding benchmarks sized for small omni models (0-shot,
-      lmms-eval, qwen3_omni wrapper). All nine tasks score locally
+      lmms-eval, qwen3_omni wrapper). All thirteen tasks score locally
       (no LLM-judge dependency) -- mmbench_en_dev_static replaces the
       default mmbench_en_dev, which requires an OpenAI API key.
     suite: lmms-eval
@@ -614,6 +614,18 @@ task_groups:
       - task: mmbench_en_dev_static
         dataset: lmms-lab-encoder/MMBench
         metric: gpt_eval_score
+      - task: vqav2_val
+        dataset: lmms-lab-encoder/VQAv2
+        metric: exact_match
+      - task: gqa
+        dataset: lmms-lab-encoder/GQA
+        metric: exact_match
+      - task: textvqa_val
+        dataset: lmms-lab-encoder/textvqa
+        metric: exact_match
+      - task: scienceqa_img
+        dataset: lmms-lab-encoder/ScienceQA
+        metric: exact_match
 
 super_groups:
   oellm-multilingual:
